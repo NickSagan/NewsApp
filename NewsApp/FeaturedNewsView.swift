@@ -13,7 +13,7 @@ class FeaturedNewsView: UIView {
     let newsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemBlue // ONLY FOR TEST
+        imageView.backgroundColor = .systemGreen // ONLY FOR TEST
         return imageView
     }()
     
