@@ -55,15 +55,6 @@ class NewsCell: UICollectionViewCell {
         return label
     }()
     
-    let newsAgency: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .darkGray
-        label.text = ""
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -81,7 +72,6 @@ class NewsCell: UICollectionViewCell {
         contentView.addSubview(newsDescription)
         contentView.addSubview(newsDate)
         contentView.addSubview(newsComments)
-        contentView.addSubview(newsAgency)
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         newsImage.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +79,6 @@ class NewsCell: UICollectionViewCell {
         newsDescription.translatesAutoresizingMaskIntoConstraints = false
         newsDate.translatesAutoresizingMaskIntoConstraints = false
         newsComments.translatesAutoresizingMaskIntoConstraints = false
-        newsAgency.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.snp.makeConstraints { make in
             make.top.equalTo(self)
@@ -128,13 +117,6 @@ class NewsCell: UICollectionViewCell {
             make.top.equalTo(newsDescription.snp.bottom).offset(6)
             make.left.equalTo(newsDate.snp.right).offset(10)
             make.bottom.equalTo(contentView.snp.bottom).offset(-10)
-        }
-        
-        newsAgency.snp.makeConstraints { make in
-            make.top.equalTo(newsDescription.snp.bottom).offset(6)
-            make.left.equalTo(newsComments.snp.right).offset(10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
-            make.right.greaterThanOrEqualTo(contentView.snp.right).offset(-10).priority(90)
         }
     }
     

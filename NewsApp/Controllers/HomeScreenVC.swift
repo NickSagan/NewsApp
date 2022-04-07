@@ -99,8 +99,7 @@ extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
         cell.newsTitle.text = otherNews[indexPath.row].title
         cell.newsDescription.text = otherNews[indexPath.row].description
         cell.newsDate.text = otherNews[indexPath.row].publishedAt
-        cell.newsAgency.text = otherNews[indexPath.row].source
-        
+
         guard let imageUrl = URL(string: otherNews[indexPath.row].urlToImage) else { return cell }
         DispatchQueue.global().async {
             guard let data = try? Data(contentsOf: imageUrl) else { return }
