@@ -15,6 +15,9 @@ class HomeScreenVC: UIViewController {
     private var collectionView: UICollectionView!
     private var refreshControl: UIRefreshControl!
     
+    var newsFeedManager = NewsFeedManager()
+    var news = [News]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
@@ -23,6 +26,9 @@ class HomeScreenVC: UIViewController {
         addNewsFeedView()
         setConstraints()
         addCollectionView()
+        
+        newsFeedManager.delegate = self
+        newsFeedManager.fetchFeaturedNews()
     }
     
     func addHeaderView() {
@@ -71,6 +77,7 @@ class HomeScreenVC: UIViewController {
         collectionView?.dataSource = self
         collectionView?.delegate = self
         collectionView?.register(NewsCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         collectionView?.backgroundColor = UIColor.white
         
         refreshControl = UIRefreshControl()
@@ -97,13 +104,25 @@ class HomeScreenVC: UIViewController {
 extension HomeScreenVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return news.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NewsCell
+        cell.newsTitle.text = news[indexPath.row].title
+        cell.newsDescription.text = news[indexPath.row].description
+        cell.newsDate.text = news[indexPath.row].publishedAt
+        cell.newsAgency.text = news[indexPath.row].source
         
+        guard let imageUrl = URL(string: news[indexPath.row].urlToImage) else { return cell }
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: imageUrl) else { return }
+            DispatchQueue.main.async {
+                guard let image = UIImage(data: data) else {return}
+                cell.newsImage.image = image
+            }
+        }
         return cell
     }
 }
@@ -114,5 +133,14 @@ extension HomeScreenVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+    }
+}
+
+extension HomeScreenVC: NewsFeedManagerDelegate {
+    func didRecieveNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
+        DispatchQueue.main.async {
+            self.news = news
+            self.collectionView.reloadData()
+        }
     }
 }
