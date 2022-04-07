@@ -21,13 +21,16 @@ class HomeScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newsFeedManager.delegate = self
-        navigationController?.isNavigationBarHidden = true
         newsFeedManager.fetchFeaturedNews()
         newsFeedManager.fetchOtherNews()
         addHeaderView()
         addNewsFeedView()
         setConstraints()
         addCollectionView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true
     }
     
     func addHeaderView() {
@@ -140,7 +143,10 @@ extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
 extension HomeScreenVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard let url = URL(string: otherNews[indexPath.row].url) else { return }
+        let vc = WebViewVC()
+        vc.selectedSite = url
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
