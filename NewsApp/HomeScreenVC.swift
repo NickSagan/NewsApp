@@ -9,37 +9,61 @@ import UIKit
 
 class HomeScreenVC: UIViewController {
     
+    private var headerView: HeaderView!
     private var featuredNewsView: FeaturedNewsView!
+    private var newsFeedView: UIView!
     private var collectionView: UICollectionView!
     private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "IPhone News App"
-        setFeaturedNewsView()
-        setCollectionView()
+        navigationController?.isNavigationBarHidden = true
+        addHeaderView()
+        addFeaturedNewsView()
+        addNewsFeedView()
+        setConstraints()
+        addCollectionView()
     }
     
-    func setFeaturedNewsView() {
+    func addHeaderView() {
+        headerView = HeaderView()
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(headerView)
+    }
+    
+    func addFeaturedNewsView() {
         featuredNewsView = FeaturedNewsView()
         featuredNewsView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(featuredNewsView)
-        
-        featuredNewsView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.height.equalTo(view.snp.height).multipliedBy(0.4)
-        }
     }
     
-    func setCollectionView() {
-        let newsFeedView = UIView()
-        view.backgroundColor = .white
+    func addNewsFeedView() {
+        newsFeedView = UIView()
+        newsFeedView.backgroundColor = .white
         newsFeedView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(newsFeedView)
+    }
+    
+    func setConstraints() {
+        headerView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.snp.topMargin)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(45)
+        }
+        
+        featuredNewsView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom)
+            make.height.equalTo(view.snp.height).multipliedBy(0.3)
+        }
+        
         newsFeedView.snp.makeConstraints { make in
             make.top.equalTo(featuredNewsView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    func addCollectionView() {
         
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: setLayout())
         newsFeedView.addSubview(collectionView)
