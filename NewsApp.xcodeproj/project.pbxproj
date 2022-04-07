@@ -22,6 +22,7 @@
 		912BD60A27FEFB4300529915 /* Articles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60927FEFB4300529915 /* Articles.swift */; };
 		912BD60C27FEFD9E00529915 /* NewsFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60B27FEFD9E00529915 /* NewsFeedManager.swift */; };
 		912BD60E27FF018300529915 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60D27FF018300529915 /* News.swift */; };
+		912BD61427FF3D2B00529915 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD61327FF3D2B00529915 /* WebViewVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		912BD60927FEFB4300529915 /* Articles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Articles.swift; sourceTree = "<group>"; };
 		912BD60B27FEFD9E00529915 /* NewsFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedManager.swift; sourceTree = "<group>"; };
 		912BD60D27FF018300529915 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		912BD61327FF3D2B00529915 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				912BD5CB27FE081B00529915 /* HomeScreenVC.swift */,
+				912BD61327FF3D2B00529915 /* WebViewVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			files = (
 				912BD60A27FEFB4300529915 /* Articles.swift in Sources */,
 				912BD5CC27FE081B00529915 /* HomeScreenVC.swift in Sources */,
+				912BD61427FF3D2B00529915 /* WebViewVC.swift in Sources */,
 				912BD60427FEE4B000529915 /* HeaderView.swift in Sources */,
 				912BD60E27FF018300529915 /* News.swift in Sources */,
 				912BD5FF27FED3D000529915 /* FeaturedNewsView.swift in Sources */,
