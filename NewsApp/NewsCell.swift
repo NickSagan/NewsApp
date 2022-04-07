@@ -14,7 +14,7 @@ class NewsCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerRadius = 8
         imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
         imageView.backgroundColor = .systemRed // ONLY FOR TEST
         return imageView
@@ -144,7 +144,7 @@ class NewsCell: UICollectionViewCell {
     func addCornerRadiusWithShadow() {
         self.clipsToBounds = false
         self.backgroundColor = .white
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 8
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 0.0)
         self.layer.shadowRadius = 5
