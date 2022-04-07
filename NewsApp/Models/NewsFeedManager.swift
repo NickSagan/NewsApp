@@ -21,17 +21,13 @@ struct NewsFeedManager {
     
     var delegate: NewsFeedManagerDelegate?
     
-    private let apiKey = "3694dad9cbc345c3b86afe90fe329cca"
-    private let featuredNewsUrl = "https://newsapi.org/v2/top-headlines?country=us&apiKey="
-    private let otherNewsUrl = "https://newsapi.org/v2/everything?domains=techcrunch.com&sortBy=popularity&apiKey="
-    
     func fetchFeaturedNews() {
-        let urlString = featuredNewsUrl + apiKey
+        let urlString = Shared.instance.featuredNewsUrl + getCountry() + Shared.instance.apiKey
         performRequest(with: urlString, newsType: .featuredNews)
     }
     
     func fetchOtherNews() {
-        let urlString = otherNewsUrl + apiKey
+        let urlString = Shared.instance.otherNewsUrl + Shared.instance.apiKey
         performRequest(with: urlString, newsType: .otherNews)
     }
     
@@ -72,6 +68,22 @@ struct NewsFeedManager {
             print(error)
             return nil
         }
+    }
+    
+    private func getCountry() -> String {
+        var country: String?
+        
+        if let locale = Locale.current.regionCode {
+            let loc = locale.lowercased()
+            if Shared.instance.localeCountries.contains(loc) {
+                country = locale
+            }
+        } else if let locale = Locale.current.languageCode {
+            if Shared.instance.localeCountries.contains(locale) {
+                country = locale
+            }
+        }
+        return "country=\(country ?? "us")"
     }
     
     // https://stackoverflow.com/a/42811162/16935118
