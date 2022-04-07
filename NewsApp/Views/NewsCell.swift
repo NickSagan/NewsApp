@@ -12,11 +12,11 @@ class NewsCell: UICollectionViewCell {
     
     let newsImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 8
         imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
-        imageView.backgroundColor = .systemRed // ONLY FOR TEST
+        imageView.backgroundColor = .lightGray
         return imageView
     }()
     
@@ -26,7 +26,6 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .black
         label.numberOfLines = 2
-        label.text = "This is a news title label This is a news title label" // ONLY FOR TEST
         return label
     }()
     
@@ -36,7 +35,6 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.numberOfLines = 2
         label.textColor = .darkGray
-        label.text = "This is a news description label This is a news description label This is a news description label This is a news description label" // ONLY FOR TEST
         return label
     }()
     
@@ -45,7 +43,6 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
-        label.text = "April 07, 2022" // ONLY FOR TEST
         return label
     }()
     
@@ -54,7 +51,7 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
-        label.text = "cmnts: 0" // ONLY FOR TEST
+        label.text = "✉️ 0"
         return label
     }()
     
