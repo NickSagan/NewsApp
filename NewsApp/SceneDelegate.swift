@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nc.navigationBar.backgroundColor = UIColor.white.withAlphaComponent(0)
         nc.navigationBar.tintColor = .white
         window?.rootViewController = nc
-        window?.backgroundColor = .white
+        window?.backgroundColor = .systemBlue
         window?.makeKeyAndVisible()
     }
 
