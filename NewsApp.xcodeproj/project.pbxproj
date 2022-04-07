@@ -18,6 +18,7 @@
 		912BD5FB27FEBF7400529915 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 912BD5FA27FEBF7400529915 /* SnapKit */; };
 		912BD5FD27FEBFC800529915 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD5FC27FEBFC800529915 /* NewsCell.swift */; };
 		912BD5FF27FED3D000529915 /* FeaturedNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD5FE27FED3D000529915 /* FeaturedNewsView.swift */; };
+		912BD60427FEE4B000529915 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60327FEE4B000529915 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		912BD5EA27FE082300529915 /* NewsAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		912BD5FC27FEBFC800529915 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 		912BD5FE27FED3D000529915 /* FeaturedNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedNewsView.swift; sourceTree = "<group>"; };
+		912BD60327FEE4B000529915 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				912BD5D527FE082200529915 /* Info.plist */,
 				912BD5FC27FEBFC800529915 /* NewsCell.swift */,
 				912BD5FE27FED3D000529915 /* FeaturedNewsView.swift */,
+				912BD60327FEE4B000529915 /* HeaderView.swift */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				912BD5CC27FE081B00529915 /* HomeScreenVC.swift in Sources */,
+				912BD60427FEE4B000529915 /* HeaderView.swift in Sources */,
 				912BD5FF27FED3D000529915 /* FeaturedNewsView.swift in Sources */,
 				912BD5C827FE081B00529915 /* AppDelegate.swift in Sources */,
 				912BD5FD27FEBFC800529915 /* NewsCell.swift in Sources */,
