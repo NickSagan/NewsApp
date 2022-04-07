@@ -12,7 +12,7 @@ class WebViewVC: UIViewController {
     
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var selectedSite: String!
+    var selectedSite: URL!
     
     override func loadView() {
         webView = WKWebView()
@@ -22,40 +22,41 @@ class WebViewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupToolBar()
+        navigationController?.isNavigationBarHidden = false
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+        webView.load(URLRequest(url: selectedSite))
+        webView.allowsBackForwardNavigationGestures = true
+    }
+    
+    func setupToolBar() {
+        let home = UIBarButtonItem(image: UIImage(systemName: "house.fill"), style: .done, target: self, action: #selector(backHome))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progressButton = UIBarButtonItem(customView: progressView)
-        
-        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
-        
-        let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
-        
-        toolbarItems = [progressButton, spacer, backButton, forwardButton, refresh]
-        
-        // shows toolbar at bottom
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "backward"), style: .plain, target: webView, action: #selector(webView.goBack))
+        let forwardButton = UIBarButtonItem(image: UIImage(systemName: "forward"), style: .plain, target: webView, action: #selector(webView.goForward))
+        toolbarItems = [home, spacer, progressButton, spacer, backButton, spacer, forwardButton, spacer, refresh]
         navigationController?.isToolbarHidden = false
-        
-        // adds observer to see website's loading progress
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        
-        // Starting page
-        let url = URL(string: selectedSite)!
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
+    }
+    
+    @objc func backHome() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
 extension WebViewVC: WKNavigationDelegate {
-    // Adds KVO (key value observer) for estimatedProgress
+    // Key Value Observer for progressBar
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
-            // update progressView
             progressView.progress = Float(webView.estimatedProgress)
+            if webView.estimatedProgress >= 0.95 {
+                progressView.isHidden = true
+            } else {
+                progressView.isHidden = false
+            }
         }
-        
     }
 }
