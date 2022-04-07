@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeScreenVC: UIViewController {
-
+    
     private var refreshControl: UIRefreshControl!
     private var collectionView: UICollectionView!
     
@@ -16,7 +16,7 @@ class HomeScreenVC: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
     }
-
+    
     func setupCollectionView() {
         let view = UIView()
         view.backgroundColor = .white
@@ -37,9 +37,9 @@ class HomeScreenVC: UIViewController {
     
     func setLayout() -> UICollectionViewFlowLayout {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        layout.itemSize.width = self.view.frame.width - 10
-        layout.itemSize.height = 220
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize.width = self.view.frame.width - 20
+        layout.itemSize.height = self.view.frame.width / 3.5
         return layout
     }
     
@@ -54,13 +54,13 @@ class HomeScreenVC: UIViewController {
 extension HomeScreenVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 15
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NewsCell
-
+        
         return cell
     }
 }
