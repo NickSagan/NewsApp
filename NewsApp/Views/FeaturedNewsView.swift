@@ -8,12 +8,12 @@
 import UIKit
 import SnapKit
 
-class FeaturedNewsView: UIView {
+class FeaturedNewsView: UICollectionReusableView {
     
     let newsImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemGreen // ONLY FOR TEST
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .lightGray
         return imageView
     }()
     
@@ -23,7 +23,7 @@ class FeaturedNewsView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .white
         label.numberOfLines = 2
-        label.text = "This is a news title label This is a news title label" // ONLY FOR TEST
+        label.text = ""
         return label
     }()
     
@@ -32,7 +32,7 @@ class FeaturedNewsView: UIView {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
-        label.text = "April 07, 2022" // ONLY FOR TEST
+        label.text = ""
         return label
     }()
     
@@ -41,7 +41,7 @@ class FeaturedNewsView: UIView {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
-        label.text = "cmnts: 0" // ONLY FOR TEST
+        label.text = "✉️ \(Int.random(in: 0...99))"
         return label
     }()
     
@@ -50,7 +50,7 @@ class FeaturedNewsView: UIView {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
-        label.text = "CNN" // ONLY FOR TEST
+        label.text = ""
         return label
     }()
     

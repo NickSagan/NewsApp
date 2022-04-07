@@ -51,7 +51,7 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
-        label.text = "✉️ 0"
+        label.text = "✉️ \(Int.random(in: 0...99))"
         return label
     }()
     
@@ -60,7 +60,7 @@ class NewsCell: UICollectionViewCell {
         label.font = UIFont(name: "Verdana", size: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
-        label.text = "CNN" // ONLY FOR TEST
+        label.text = ""
         return label
     }()
     
