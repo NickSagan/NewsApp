@@ -29,8 +29,8 @@ class FeaturedNewsView: UIView {
     
     let newsDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 18)
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "Verdana", size: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         label.text = "April 07, 2022" // ONLY FOR TEST
         return label
@@ -38,8 +38,8 @@ class FeaturedNewsView: UIView {
     
     let newsComments: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 18)
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "Verdana", size: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         label.text = "cmnts: 0" // ONLY FOR TEST
         return label
@@ -47,8 +47,8 @@ class FeaturedNewsView: UIView {
     
     let newsAgency: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 18)
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont(name: "Verdana", size: 14)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
         label.text = "CNN" // ONLY FOR TEST
         return label
