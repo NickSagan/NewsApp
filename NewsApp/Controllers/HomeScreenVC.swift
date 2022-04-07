@@ -29,6 +29,14 @@ class HomeScreenVC: UIViewController {
         addNewsFeedView()
         setConstraints()
         addCollectionView()
+        
+        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapGestureReconizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureReconizer)
+    }
+    
+    @objc private func tap(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +140,10 @@ extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
         header.newsAgency.text = featuredNews[0].source
         let stringUrl = featuredNews[0].urlToImage
         
+        let tapGestureReconizer = UITapGestureRecognizer(target: self, action: #selector(tapHeader))
+        tapGestureReconizer.cancelsTouchesInView = false
+        header.addGestureRecognizer(tapGestureReconizer)
+        
         guard let imageUrl = URL(string: stringUrl) else { return header }
         
         if let cachedImage = cache.object(forKey: stringUrl as NSString) {
@@ -160,6 +172,13 @@ extension HomeScreenVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let url = URL(string: otherNews[indexPath.row].url) else { return }
+        let vc = WebViewVC()
+        vc.selectedSite = url
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func tapHeader(sender: UITapGestureRecognizer) {
+        guard let url = URL(string: featuredNews[0].url) else { return }
         let vc = WebViewVC()
         vc.selectedSite = url
         navigationController?.pushViewController(vc, animated: true)
