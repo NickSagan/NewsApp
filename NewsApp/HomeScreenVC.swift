@@ -14,6 +14,7 @@ class HomeScreenVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "News feed"
         setupCollectionView()
     }
 
