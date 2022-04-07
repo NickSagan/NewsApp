@@ -10,37 +10,30 @@ import UIKit
 class HomeScreenVC: UIViewController {
     
     private var headerView: HeaderView!
-    private var featuredNewsView: FeaturedNewsView!
     private var newsFeedView: UIView!
     private var collectionView: UICollectionView!
     private var refreshControl: UIRefreshControl!
     
     var newsFeedManager = NewsFeedManager()
-    var news = [News]()
+    var featuredNews = [News]()
+    var otherNews = [News]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsFeedManager.delegate = self
         navigationController?.isNavigationBarHidden = true
+        newsFeedManager.fetchFeaturedNews()
+        newsFeedManager.fetchOtherNews()
         addHeaderView()
-        addFeaturedNewsView()
         addNewsFeedView()
         setConstraints()
         addCollectionView()
-        
-        newsFeedManager.delegate = self
-        newsFeedManager.fetchFeaturedNews()
     }
     
     func addHeaderView() {
         headerView = HeaderView()
         headerView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(headerView)
-    }
-    
-    func addFeaturedNewsView() {
-        featuredNewsView = FeaturedNewsView()
-        featuredNewsView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(featuredNewsView)
     }
     
     func addNewsFeedView() {
@@ -57,27 +50,20 @@ class HomeScreenVC: UIViewController {
             make.height.equalTo(45)
         }
         
-        featuredNewsView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(headerView.snp.bottom)
-            make.height.equalTo(view.snp.height).multipliedBy(0.3)
-        }
-        
         newsFeedView.snp.makeConstraints { make in
-            make.top.equalTo(featuredNewsView.snp.bottom)
+            make.top.equalTo(headerView.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
     func addCollectionView() {
-        
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: setLayout())
         newsFeedView.addSubview(collectionView)
-
+        
         collectionView?.dataSource = self
         collectionView?.delegate = self
         collectionView?.register(NewsCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView.register(FeaturedNewsView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         collectionView?.backgroundColor = UIColor.white
         
         refreshControl = UIRefreshControl()
@@ -101,21 +87,21 @@ class HomeScreenVC: UIViewController {
 
 //MARK: - UICollectionViewDataSource
 
-extension HomeScreenVC: UICollectionViewDataSource {
+extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return news.count
+        return otherNews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NewsCell
-        cell.newsTitle.text = news[indexPath.row].title
-        cell.newsDescription.text = news[indexPath.row].description
-        cell.newsDate.text = news[indexPath.row].publishedAt
-        cell.newsAgency.text = news[indexPath.row].source
+        cell.newsTitle.text = otherNews[indexPath.row].title
+        cell.newsDescription.text = otherNews[indexPath.row].description
+        cell.newsDate.text = otherNews[indexPath.row].publishedAt
+        cell.newsAgency.text = otherNews[indexPath.row].source
         
-        guard let imageUrl = URL(string: news[indexPath.row].urlToImage) else { return cell }
+        guard let imageUrl = URL(string: otherNews[indexPath.row].urlToImage) else { return cell }
         DispatchQueue.global().async {
             guard let data = try? Data(contentsOf: imageUrl) else { return }
             DispatchQueue.main.async {
@@ -124,6 +110,29 @@ extension HomeScreenVC: UICollectionViewDataSource {
             }
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as! FeaturedNewsView
+        guard !featuredNews.isEmpty else { return header }
+        header.newsTitle.text = featuredNews[0].title
+        header.newsDate.text = featuredNews[0].publishedAt
+        header.newsAgency.text = featuredNews[0].source
+        
+        guard let imageUrl = URL(string: featuredNews[0].urlToImage) else { return header }
+        DispatchQueue.global().async {
+            guard let data = try? Data(contentsOf: imageUrl) else { return }
+            DispatchQueue.main.async {
+                guard let image = UIImage(data: data) else {return}
+                header.newsImage.image = image
+            }
+        }
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.width * 0.65)
     }
 }
 
@@ -136,10 +145,19 @@ extension HomeScreenVC: UICollectionViewDelegate {
     }
 }
 
+//MARK: - NewsFeedManagerDelegate
+
 extension HomeScreenVC: NewsFeedManagerDelegate {
-    func didRecieveNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
+    func didRecieveFeaturedNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
         DispatchQueue.main.async {
-            self.news = news
+            self.featuredNews = news
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func didRecieveOtherNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
+        DispatchQueue.main.async {
+            self.otherNews = news
             self.collectionView.reloadData()
         }
     }
