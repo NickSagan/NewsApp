@@ -18,8 +18,8 @@ class HeaderView: UIView {
     
     let appTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 24)
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont(name: "Verdana", size: 22)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = .white
         label.text = "IPhone News App"
         return label
@@ -27,6 +27,8 @@ class HeaderView: UIView {
     
     let searchBar: UISearchBar = {
         let search = UISearchBar()
+        search.searchBarStyle = .minimal
+        search.barTintColor = .systemBlue
         return search
     }()
     
@@ -53,16 +55,19 @@ class HeaderView: UIView {
         }
         
         appTitle.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.width.equalTo(background.snp.width).multipliedBy(0.55)
             make.leading.equalTo(background.snp.leading).offset(10)
-            make.top.equalTo(background.snp.top).offset(10)
-            make.bottom.equalTo(background.snp.top).offset(-10)
+            make.top.equalTo(background.snp.top)
+            make.bottom.equalTo(background.snp.bottom).offset(-5)
         }
         
         searchBar.snp.makeConstraints { make in
-            make.trailing.equalTo(background.snp.trailing).offset(-10)
-            make.top.equalTo(background.snp.top).offset(10)
-            make.bottom.equalTo(background.snp.top).offset(-10)
-            make.width.equalTo(background.snp.width).multipliedBy(0.25)
+            make.height.equalTo(40)
+            make.width.equalTo(background.snp.width).multipliedBy(0.40)
+            make.trailing.equalTo(background.snp.trailing).offset(-5)
+            make.top.equalTo(background.snp.top)
+            make.bottom.equalTo(background.snp.bottom).offset(-5)
         }
     }
 }
