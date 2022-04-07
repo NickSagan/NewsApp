@@ -15,6 +15,7 @@
 		912BD5DF27FE082300529915 /* NewsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD5DE27FE082300529915 /* NewsAppTests.swift */; };
 		912BD5E927FE082300529915 /* NewsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD5E827FE082300529915 /* NewsAppUITests.swift */; };
 		912BD5EB27FE082300529915 /* NewsAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD5EA27FE082300529915 /* NewsAppUITestsLaunchTests.swift */; };
+		912BD5FB27FEBF7400529915 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 912BD5FA27FEBF7400529915 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912BD5FB27FEBF7400529915 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,9 @@
 			dependencies = (
 			);
 			name = NewsApp;
+			packageProductDependencies = (
+				912BD5FA27FEBF7400529915 /* SnapKit */,
+			);
 			productName = NewsApp;
 			productReference = 912BD5C427FE081B00529915 /* NewsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +217,9 @@
 				Base,
 			);
 			mainGroup = 912BD5BB27FE081B00529915;
+			packageReferences = (
+				912BD5F927FEBF7400529915 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 912BD5C527FE081B00529915 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -594,6 +602,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		912BD5F927FEBF7400529915 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		912BD5FA27FEBF7400529915 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 912BD5F927FEBF7400529915 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 912BD5BC27FE081B00529915 /* Project object */;
 }
