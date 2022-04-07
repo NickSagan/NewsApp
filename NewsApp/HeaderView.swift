@@ -48,6 +48,21 @@ class HeaderView: UIView {
         appTitle.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
-
+        background.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        appTitle.snp.makeConstraints { make in
+            make.leading.equalTo(background.snp.leading).offset(10)
+            make.top.equalTo(background.snp.top).offset(10)
+            make.bottom.equalTo(background.snp.top).offset(-10)
+        }
+        
+        searchBar.snp.makeConstraints { make in
+            make.trailing.equalTo(background.snp.trailing).offset(-10)
+            make.top.equalTo(background.snp.top).offset(10)
+            make.bottom.equalTo(background.snp.top).offset(-10)
+            make.width.equalTo(background.snp.width).multipliedBy(0.25)
+        }
     }
 }
