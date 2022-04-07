@@ -18,6 +18,8 @@ class HomeScreenVC: UIViewController {
     var featuredNews = [News]()
     var otherNews = [News]()
     
+    var cache = NSCache<NSString, UIImage>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         newsFeedManager.delegate = self
@@ -83,6 +85,8 @@ class HomeScreenVC: UIViewController {
     }
     
     @objc func refresh(_ sender: AnyObject) {
+        newsFeedManager.fetchFeaturedNews()
+        newsFeedManager.fetchOtherNews()
         usleep(UInt32(0.5))
         refreshControl.endRefreshing()
     }
@@ -97,18 +101,24 @@ extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! NewsCell
         cell.newsTitle.text = otherNews[indexPath.row].title
         cell.newsDescription.text = otherNews[indexPath.row].description
         cell.newsDate.text = otherNews[indexPath.row].publishedAt
-
-        guard let imageUrl = URL(string: otherNews[indexPath.row].urlToImage) else { return cell }
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: imageUrl) else { return }
-            DispatchQueue.main.async {
-                guard let image = UIImage(data: data) else {return}
-                cell.newsImage.image = image
+        let stringUrl = otherNews[indexPath.row].urlToImage
+        
+        guard let imageUrl = URL(string: stringUrl) else { return cell }
+        
+        if let cachedImage = cache.object(forKey: stringUrl as NSString) {
+            cell.newsImage.image = cachedImage
+        } else {
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: imageUrl) else { return }
+                DispatchQueue.main.async {
+                    guard let fetchedImage = UIImage(data: data) else { return }
+                    cell.newsImage.image = fetchedImage
+                    self.cache.setObject(fetchedImage, forKey: stringUrl as NSString)
+                }
             }
         }
         return cell
@@ -120,16 +130,22 @@ extension HomeScreenVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
         header.newsTitle.text = featuredNews[0].title
         header.newsDate.text = featuredNews[0].publishedAt
         header.newsAgency.text = featuredNews[0].source
+        let stringUrl = featuredNews[0].urlToImage
         
-        guard let imageUrl = URL(string: featuredNews[0].urlToImage) else { return header }
-        DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: imageUrl) else { return }
-            DispatchQueue.main.async {
-                guard let image = UIImage(data: data) else {return}
-                header.newsImage.image = image
+        guard let imageUrl = URL(string: stringUrl) else { return header }
+        
+        if let cachedImage = cache.object(forKey: stringUrl as NSString) {
+            header.newsImage.image = cachedImage
+        } else {
+            DispatchQueue.global().async {
+                guard let data = try? Data(contentsOf: imageUrl) else { return }
+                DispatchQueue.main.async {
+                    guard let fetchedImage = UIImage(data: data) else { return }
+                    header.newsImage.image = fetchedImage
+                    self.cache.setObject(fetchedImage, forKey: stringUrl as NSString)
+                }
             }
         }
-        
         return header
     }
     
