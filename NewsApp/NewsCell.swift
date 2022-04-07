@@ -19,6 +19,7 @@ class NewsCell: UICollectionViewCell {
     let newsImage: UIImageView = {
         let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
+        imgView.backgroundColor = .systemRed // ONLY FOR TEST
         return imgView
     }()
     
@@ -29,6 +30,7 @@ class NewsCell: UICollectionViewCell {
         label.frame.size.height = 100
         label.frame.size.width = 150
         label.textColor = .black
+        label.text = "This is a news title label This is a news title label" // ONLY FOR TEST
         return label
     }()
     
@@ -39,6 +41,7 @@ class NewsCell: UICollectionViewCell {
         label.frame.size.height = 100
         label.frame.size.width = 150
         label.textColor = .black
+        label.text = "This is a news description label This is a news description label This is a news description label This is a news description label" // ONLY FOR TEST
         return label
     }()
     
@@ -49,6 +52,7 @@ class NewsCell: UICollectionViewCell {
         label.frame.size.height = 100
         label.frame.size.width = 150
         label.textColor = .black
+        label.text = "April 07, 2022" // ONLY FOR TEST
         return label
     }()
     
@@ -59,6 +63,7 @@ class NewsCell: UICollectionViewCell {
         label.frame.size.height = 100
         label.frame.size.width = 150
         label.textColor = .black
+        label.text = "cmnts: 0" // ONLY FOR TEST
         return label
     }()
     
@@ -69,6 +74,7 @@ class NewsCell: UICollectionViewCell {
         label.frame.size.height = 100
         label.frame.size.width = 150
         label.textColor = .black
+        label.text = "CNN" // ONLY FOR TEST
         return label
     }()
     
@@ -113,5 +119,35 @@ class NewsCell: UICollectionViewCell {
             make.bottom.equalTo(background.snp.bottom)
         }
         
+        newsTitle.snp.makeConstraints { make in
+            make.top.equalTo(background.snp.top).offset(10)
+            make.left.equalTo(newsImage.snp.right).offset(10)
+            make.right.equalTo(background.snp.right).offset(-10)
+        }
+        
+        newsDescription.snp.makeConstraints { make in
+            make.top.equalTo(newsTitle.snp.bottom).offset(10)
+            make.left.equalTo(newsImage.snp.right).offset(10)
+            make.right.equalTo(background.snp.right).offset(-10)
+        }
+        
+        newsDate.snp.makeConstraints { make in
+            make.top.equalTo(newsDescription.snp.bottom).offset(10)
+            make.left.equalTo(newsImage.snp.right).offset(10)
+            make.bottom.equalTo(background.snp.bottom).offset(-10)
+        }
+        
+        newsComments.snp.makeConstraints { make in
+            make.top.equalTo(newsDescription.snp.bottom).offset(10)
+            make.left.equalTo(newsDate.snp.right).offset(10)
+            make.bottom.equalTo(background.snp.bottom).offset(-10)
+        }
+        
+        newsAgency.snp.makeConstraints { make in
+            make.top.equalTo(newsDescription.snp.bottom).offset(10)
+            make.left.equalTo(newsComments.snp.right).offset(10)
+            make.bottom.equalTo(background.snp.bottom).offset(-10)
+            make.right.greaterThanOrEqualTo(background.snp.right).offset(-10)
+        }
     }
 }
