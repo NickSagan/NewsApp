@@ -77,5 +77,33 @@ class FeaturedNewsView: UIView {
         newsComments.translatesAutoresizingMaskIntoConstraints = false
         newsAgency.translatesAutoresizingMaskIntoConstraints = false
 
+        newsImage.snp.makeConstraints { make in
+            make.top.equalTo(self)
+            make.left.equalTo(self)
+            make.right.equalTo(self)
+            make.bottom.equalTo(self)
+        }
+        
+        newsTitle.snp.makeConstraints { make in
+            make.left.equalTo(newsImage.snp.left).offset(10)
+            make.right.equalTo(newsImage.snp.right).offset(-10)
+            make.bottom.equalTo(newsDate.snp.top).offset(-10)
+        }
+        
+        newsDate.snp.makeConstraints { make in
+            make.left.equalTo(newsImage.snp.left).offset(10)
+            make.bottom.equalTo(newsImage.snp.bottom).offset(-10)
+        }
+        
+        newsComments.snp.makeConstraints { make in
+            make.left.equalTo(newsDate.snp.right).offset(10)
+            make.bottom.equalTo(newsImage.snp.bottom).offset(-10)
+        }
+        
+        newsAgency.snp.makeConstraints { make in
+            make.left.equalTo(newsComments.snp.right).offset(10)
+            make.bottom.equalTo(newsImage.snp.bottom).offset(-10)
+            make.right.greaterThanOrEqualTo(newsImage.snp.right).offset(-10).priority(90)
+        }
     }
 }
