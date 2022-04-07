@@ -7,8 +7,14 @@
 
 import Foundation
 
+enum NewsType {
+    case featuredNews
+    case otherNews
+}
+
 protocol NewsFeedManagerDelegate {
-    func didRecieveNews(_ newsFeedManager: NewsFeedManager, news: [News])
+    func didRecieveFeaturedNews(_ newsFeedManager: NewsFeedManager, news: [News])
+    func didRecieveOtherNews(_ newsFeedManager: NewsFeedManager, news: [News])
 }
 
 struct NewsFeedManager {
@@ -21,22 +27,25 @@ struct NewsFeedManager {
     
     func fetchFeaturedNews() {
         let urlString = featuredNewsUrl + apiKey
-        performRequest(with: urlString)
+        performRequest(with: urlString, newsType: .featuredNews)
     }
     
     func fetchOtherNews() {
         let urlString = otherNewsUrl + apiKey
-        performRequest(with: urlString)
+        performRequest(with: urlString, newsType: .otherNews)
     }
     
-    private func performRequest(with urlString: String) {
+    private func performRequest(with urlString: String, newsType: NewsType) {
         guard let url = URL(string: urlString) else { return }
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             if error != nil { print("Request fail: \(String(describing: error))"); return }
             guard let safeData = data else { return }
             guard let news = self.parseJSON(safeData) else { return }
-            self.delegate?.didRecieveNews(self, news: news)
+            switch newsType {
+            case .featuredNews: self.delegate?.didRecieveFeaturedNews(self, news: news)
+            case .otherNews: self.delegate?.didRecieveOtherNews(self, news: news)
+            }
         }
         task.resume()
     }
