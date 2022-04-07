@@ -9,20 +9,41 @@ import UIKit
 
 class HomeScreenVC: UIViewController {
     
-    private var refreshControl: UIRefreshControl!
+    private var featuredNewsView: FeaturedNewsView!
     private var collectionView: UICollectionView!
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "News feed"
-        setupCollectionView()
+        title = "IPhone News App"
+        setFeaturedNewsView()
+        setCollectionView()
     }
     
-    func setupCollectionView() {
-        let view = UIView()
-        view.backgroundColor = .white
+    func setFeaturedNewsView() {
+        featuredNewsView = FeaturedNewsView()
+        featuredNewsView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(featuredNewsView)
         
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: setLayout())
+        featuredNewsView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+            make.height.equalTo(view.snp.height).multipliedBy(0.4)
+        }
+    }
+    
+    func setCollectionView() {
+        let newsFeedView = UIView()
+        view.backgroundColor = .white
+        newsFeedView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(newsFeedView)
+        newsFeedView.snp.makeConstraints { make in
+            make.top.equalTo(featuredNewsView.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        collectionView = UICollectionView(frame: view.frame, collectionViewLayout: setLayout())
+        newsFeedView.addSubview(collectionView)
+
         collectionView?.dataSource = self
         collectionView?.delegate = self
         collectionView?.register(NewsCell.self, forCellWithReuseIdentifier: "cell")
@@ -31,9 +52,6 @@ class HomeScreenVC: UIViewController {
         refreshControl = UIRefreshControl()
         collectionView?.refreshControl = refreshControl
         refreshControl?.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        
-        view.addSubview(collectionView!)
-        self.view = view
     }
     
     func setLayout() -> UICollectionViewFlowLayout {
