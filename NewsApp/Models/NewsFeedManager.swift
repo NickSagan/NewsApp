@@ -56,22 +56,39 @@ struct NewsFeedManager {
             let decodedData = try decoder.decode(Articles.self, from: safeData)
             var news = [News]()
             for item in decodedData.articles {
-                
                 let source = item.source.name ?? "No source"
                 let title = item.title ?? "No title"
                 let description = item.description ?? "No decription"
                 let url = item.url ?? ""
                 let urlToImage = item.urlToImage ?? ""
-                let publishedAt = item.publishedAt ?? "No date"
+                let publishedAt = item.publishedAt ?? ""
+                let displayDate = getDate(from: publishedAt)
                 
-                let article = News(source: source, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: publishedAt)
+                let article = News(source: source, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: displayDate)
                 news.append(article)
             }
-            
             return news
         } catch {
             print(error)
             return nil
+        }
+    }
+    
+    // https://stackoverflow.com/a/42811162/16935118
+    private func getDate(from isoDate: String) -> String {
+        // String -> Date
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+    
+        if let date = dateFormatter.date(from:isoDate) {
+            // Date -> local Date -> String
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "🕓 MMMM dd, yyyy"
+            return dateFormatter.string(from: date)
+        } else {
+            return "No date provided"
         }
     }
 }
