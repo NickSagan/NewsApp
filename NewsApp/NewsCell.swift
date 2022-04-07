@@ -10,18 +10,14 @@ import SnapKit
 
 class NewsCell: UICollectionViewCell {
     
-    let background: UIImageView = {
-        let imgView = UIImageView()
-        //imgView.image = UIImage(named: "newsbg")
-        return imgView
-    }()
-    
     let newsImage: UIImageView = {
-        let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFit
-        imgView.layer.cornerRadius = 10
-        imgView.backgroundColor = .systemRed // ONLY FOR TEST
-        return imgView
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+        imageView.backgroundColor = .systemRed // ONLY FOR TEST
+        return imageView
     }()
     
     let newsTitle: UILabel = {
@@ -74,7 +70,7 @@ class NewsCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
-        addShadow()
+        addCornerRadiusWithShadow()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,15 +78,15 @@ class NewsCell: UICollectionViewCell {
     }
     
     func addSubviews() {
-        addSubview(background)
-        background.addSubview(newsImage)
-        background.addSubview(newsTitle)
-        background.addSubview(newsDescription)
-        background.addSubview(newsDate)
-        background.addSubview(newsComments)
-        background.addSubview(newsAgency)
+        addSubview(contentView)
+        contentView.addSubview(newsImage)
+        contentView.addSubview(newsTitle)
+        contentView.addSubview(newsDescription)
+        contentView.addSubview(newsDate)
+        contentView.addSubview(newsComments)
+        contentView.addSubview(newsAgency)
         
-        background.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         newsTitle.translatesAutoresizingMaskIntoConstraints = false
         newsDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +94,7 @@ class NewsCell: UICollectionViewCell {
         newsComments.translatesAutoresizingMaskIntoConstraints = false
         newsAgency.translatesAutoresizingMaskIntoConstraints = false
 
-        background.snp.makeConstraints { make in
+        contentView.snp.makeConstraints { make in
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
@@ -106,52 +102,52 @@ class NewsCell: UICollectionViewCell {
         }
         
         newsImage.snp.makeConstraints { make in
-            make.top.equalTo(background.snp.top).offset(8)
-            make.left.equalTo(background.snp.left)
-            make.height.equalTo(background.snp.height).offset(-16)
+            make.top.equalTo(contentView.snp.top)
+            make.left.equalTo(contentView.snp.left)
+            make.height.equalTo(contentView.snp.height)
             make.width.equalTo(newsImage.snp.height)
-            make.bottom.equalTo(background.snp.bottom).offset(-8)
+            make.bottom.equalTo(contentView.snp.bottom)
         }
         
         newsTitle.snp.makeConstraints { make in
-            make.top.equalTo(background.snp.top).offset(10)
+            make.top.equalTo(contentView.snp.top).offset(10)
             make.left.equalTo(newsImage.snp.right).offset(10)
-            make.right.equalTo(background.snp.right).offset(-10)
+            make.right.equalTo(contentView.snp.right).offset(-10)
         }
         
         newsDescription.snp.makeConstraints { make in
             make.top.equalTo(newsTitle.snp.bottom).offset(6)
             make.left.equalTo(newsImage.snp.right).offset(10)
-            make.right.equalTo(background.snp.right).offset(-10)
+            make.right.equalTo(contentView.snp.right).offset(-10)
         }
         
         newsDate.snp.makeConstraints { make in
             make.top.equalTo(newsDescription.snp.bottom).offset(6)
             make.left.equalTo(newsImage.snp.right).offset(10)
-            make.bottom.equalTo(background.snp.bottom).offset(-10)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
         }
         
         newsComments.snp.makeConstraints { make in
             make.top.equalTo(newsDescription.snp.bottom).offset(6)
             make.left.equalTo(newsDate.snp.right).offset(10)
-            make.bottom.equalTo(background.snp.bottom).offset(-10)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
         }
         
         newsAgency.snp.makeConstraints { make in
             make.top.equalTo(newsDescription.snp.bottom).offset(6)
             make.left.equalTo(newsComments.snp.right).offset(10)
-            make.bottom.equalTo(background.snp.bottom).offset(-10)
-            make.right.greaterThanOrEqualTo(background.snp.right).offset(-10).priority(90)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+            make.right.greaterThanOrEqualTo(contentView.snp.right).offset(-10).priority(90)
         }
     }
     
-    func addShadow() {
+    func addCornerRadiusWithShadow() {
         self.clipsToBounds = false
-        self.backgroundColor = .systemBackground
+        self.backgroundColor = .white
         self.layer.cornerRadius = 10
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 0.0)
-        self.layer.shadowRadius = 10
-        self.layer.shadowOpacity = 0.2
+        self.layer.shadowRadius = 5
+        self.layer.shadowOpacity = 0.3
     }
 }
