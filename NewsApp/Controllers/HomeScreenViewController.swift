@@ -12,7 +12,8 @@ private extension UIEdgeInsets {
 }
 
 private extension Double {
-    static let delta = 3.5
+    static let collectionCellRatio = 3.5
+    static let collectionHeaderRatio = 0.65
 }
 
 private extension String {
@@ -51,7 +52,7 @@ class HomeScreenViewController: UIViewController {
 
         layout.sectionInset = .layoutSectionInset
         layout.itemSize.width = view.frame.width
-        layout.itemSize.height = view.frame.width / .delta
+        layout.itemSize.height = view.frame.width / .collectionCellRatio
 
         return layout
     }()
@@ -222,7 +223,7 @@ extension HomeScreenViewController: UICollectionViewDataSource, UICollectionView
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
     ) -> CGSize {
-        return .init(width: collectionView.frame.width, height: collectionView.frame.width * 0.65)
+        return .init(width: collectionView.frame.width, height: collectionView.frame.width * .collectionHeaderRatio)
     }
 }
 
