@@ -11,17 +11,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
 
-        let nc = UINavigationController(rootViewController: HomeScreenViewController())
-
-        nc.navigationBar.backgroundColor = UIColor.white.withAlphaComponent(0)
-        nc.navigationBar.tintColor = .white
-        window?.rootViewController = nc
+        window?.rootViewController = UINavigationController(rootViewController: HomeScreenViewController())
         window?.backgroundColor = .systemBlue
         window?.makeKeyAndVisible()
     }
