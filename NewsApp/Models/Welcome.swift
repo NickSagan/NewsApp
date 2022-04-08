@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Articles: Codable {
+struct Welcome: Codable {
     let articles: [Article]
+    let totalResults: Int
 }
 
 struct Article: Codable {
