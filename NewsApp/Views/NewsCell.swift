@@ -22,17 +22,17 @@ class NewsCell: UICollectionViewCell {
 
     let newsTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 20)
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont(name: "Verdana", size: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
-        //label.numberOfLines = 2
+        label.numberOfLines = 2
         return label
     }()
 
     let newsDescription: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.numberOfLines = 2
         label.textColor = .darkGray
         return label
@@ -40,16 +40,16 @@ class NewsCell: UICollectionViewCell {
 
     let newsDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textColor = .darkGray
         return label
     }()
 
     let newsComments: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textColor = .darkGray
         label.text = "✉️ \(Int.random(in: 0...99))"
         label.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
@@ -94,7 +94,7 @@ class NewsCell: UICollectionViewCell {
         }
 
         wrapper.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview().inset(10)
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
 

@@ -51,7 +51,7 @@ class HomeScreenViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
 
         layout.sectionInset = .layoutSectionInset
-        layout.itemSize.width = view.frame.width
+        layout.itemSize.width = view.frame.width - 20
         layout.itemSize.height = view.frame.width / .collectionCellRatio
 
         return layout
