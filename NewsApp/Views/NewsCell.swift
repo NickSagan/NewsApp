@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class NewsCell: UICollectionViewCell {
-    
+
     let newsImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -19,107 +19,85 @@ class NewsCell: UICollectionViewCell {
         imageView.backgroundColor = .lightGray
         return imageView
     }()
-    
+
     let newsTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 20)
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont(name: "Verdana", size: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textColor = .black
         label.numberOfLines = 2
         return label
     }()
-    
+
     let newsDescription: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.numberOfLines = 2
         label.textColor = .darkGray
         return label
     }()
-    
+
     let newsDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textColor = .darkGray
         return label
     }()
-    
+
     let newsComments: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Verdana", size: 14)
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = UIFont(name: "Verdana", size: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.textColor = .darkGray
         label.text = "✉️ \(Int.random(in: 0...99))"
+        label.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         addCornerRadiusWithShadow()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func addSubviews() {
-        addSubview(contentView)
-        contentView.addSubview(newsImage)
-        contentView.addSubview(newsTitle)
-        contentView.addSubview(newsDescription)
-        contentView.addSubview(newsDate)
-        contentView.addSubview(newsComments)
-        
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        newsImage.translatesAutoresizingMaskIntoConstraints = false
-        newsTitle.translatesAutoresizingMaskIntoConstraints = false
-        newsDescription.translatesAutoresizingMaskIntoConstraints = false
-        newsDate.translatesAutoresizingMaskIntoConstraints = false
-        newsComments.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(self)
-            make.left.equalTo(self)
-            make.right.equalTo(self)
-            make.bottom.equalTo(self)
-        }
-        
+    func addSubviews() {
+        let detailsWrapper = UIStackView(arrangedSubviews: [
+            newsDate, newsComments
+        ])
+        detailsWrapper.axis = .horizontal
+        detailsWrapper.alignment = .leading
+        detailsWrapper.spacing = 6
+
+        let contentWrapper = UIStackView(arrangedSubviews: [
+            newsTitle, newsDescription, detailsWrapper
+        ])
+        contentWrapper.axis = .vertical
+        contentWrapper.spacing = 6
+
+        let wrapper = UIStackView(arrangedSubviews: [
+            newsImage, contentWrapper
+        ])
+        wrapper.alignment = .center
+        wrapper.axis = .horizontal
+        wrapper.spacing = 10
+
+        contentView.addSubview(wrapper)
+
         newsImage.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top)
-            make.left.equalTo(contentView.snp.left)
-            make.height.equalTo(contentView.snp.height)
-            make.width.equalTo(newsImage.snp.height)
-            make.bottom.equalTo(contentView.snp.bottom)
+            make.height.width.equalTo(wrapper.snp.height)
         }
-        
-        newsTitle.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top).offset(10)
-            make.left.equalTo(newsImage.snp.right).offset(10)
-            make.right.equalTo(contentView.snp.right).offset(-10)
-        }
-        
-        newsDescription.snp.makeConstraints { make in
-            make.top.equalTo(newsTitle.snp.bottom).offset(6)
-            make.left.equalTo(newsImage.snp.right).offset(10)
-            make.right.equalTo(contentView.snp.right).offset(-10)
-        }
-        
-        newsDate.snp.makeConstraints { make in
-            make.top.equalTo(newsDescription.snp.bottom).offset(6)
-            make.left.equalTo(newsImage.snp.right).offset(10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
-        }
-        
-        newsComments.snp.makeConstraints { make in
-            make.top.equalTo(newsDescription.snp.bottom).offset(6)
-            make.left.equalTo(newsDate.snp.right).offset(10)
-            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+
+        wrapper.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
-    
+
     func addCornerRadiusWithShadow() {
         self.clipsToBounds = false
         self.backgroundColor = .white

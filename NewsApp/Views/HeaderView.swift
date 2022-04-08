@@ -45,11 +45,7 @@ class HeaderView: UIView {
         addSubview(background)
         background.addSubview(appTitle)
         background.addSubview(searchBar)
-        
-        background.translatesAutoresizingMaskIntoConstraints = false
-        appTitle.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
+
         background.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }

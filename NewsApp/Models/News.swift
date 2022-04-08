@@ -8,10 +8,10 @@
 import Foundation
 
 struct News {
-    var source: String
-    var title: String
-    var description: String
-    var url: String
-    var urlToImage: String
-    var publishedAt: String
+    let source: String
+    let title: String
+    let description: String
+    let url: String
+    let urlToImage: String
+    let publishedAt: String
 }
