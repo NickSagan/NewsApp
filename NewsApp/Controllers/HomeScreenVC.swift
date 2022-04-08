@@ -15,8 +15,8 @@ class HomeScreenVC: UIViewController {
     private var refreshControl: UIRefreshControl!
     
     var newsFeedManager = NewsFeedManager()
-    var featuredNews = [News]()
-    var otherNews = [News]()
+    var featuredNews: [News] = []
+    var otherNews: [News] = []
     
     var cache = NSCache<NSString, UIImage>()
     
@@ -190,15 +190,17 @@ extension HomeScreenVC: UICollectionViewDelegate {
 extension HomeScreenVC: NewsFeedManagerDelegate {
     func didRecieveFeaturedNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
         DispatchQueue.main.async {
-            self.featuredNews = news
+            self.featuredNews += news
             self.collectionView.reloadData()
+            print("Featured news: count = \(self.featuredNews.count)")
         }
     }
     
     func didRecieveOtherNews(_ newsFeedManager: NewsFeedManager, news: [News]) {
         DispatchQueue.main.async {
-            self.otherNews = news
+            self.otherNews += news
             self.collectionView.reloadData()
+            print("Other news: count = \(self.otherNews.count)")
         }
     }
 }
