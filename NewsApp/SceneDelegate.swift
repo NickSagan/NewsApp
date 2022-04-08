@@ -16,8 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        
-        let nc = UINavigationController(rootViewController: HomeScreenVC())
+
+        let nc = UINavigationController(rootViewController: HomeScreenViewController())
+
         nc.navigationBar.backgroundColor = UIColor.white.withAlphaComponent(0)
         nc.navigationBar.tintColor = .white
         window?.rootViewController = nc

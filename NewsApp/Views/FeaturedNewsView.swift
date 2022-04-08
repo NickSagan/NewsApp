@@ -69,19 +69,9 @@ class FeaturedNewsView: UICollectionReusableView {
         newsImage.addSubview(newsDate)
         newsImage.addSubview(newsComments)
         newsImage.addSubview(newsAgency)
-        
-
-        newsImage.translatesAutoresizingMaskIntoConstraints = false
-        newsTitle.translatesAutoresizingMaskIntoConstraints = false
-        newsDate.translatesAutoresizingMaskIntoConstraints = false
-        newsComments.translatesAutoresizingMaskIntoConstraints = false
-        newsAgency.translatesAutoresizingMaskIntoConstraints = false
 
         newsImage.snp.makeConstraints { make in
-            make.top.equalTo(self)
-            make.left.equalTo(self)
-            make.right.equalTo(self)
-            make.bottom.equalTo(self)
+            make.top.left.right.bottom.equalTo(self)
         }
         
         newsTitle.snp.makeConstraints { make in

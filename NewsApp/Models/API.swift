@@ -9,7 +9,7 @@ import Foundation
 
 struct API {
 
-    let key = "&apiKey=38e23287fe5b49399bae1db184474d33"
+    let key = "&apiKey=21dfefbac30f4339a2f5c9d5df6f4b98"
     let featuredNews = "https://newsapi.org/v2/top-headlines?"
     let otherNews = "https://newsapi.org/v2/everything?domains=techcrunch.com&language=en&sortBy=publishedAt"
     let page = "&page="
