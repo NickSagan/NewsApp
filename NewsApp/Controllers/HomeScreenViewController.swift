@@ -82,6 +82,7 @@ class HomeScreenViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true
+        navigationController?.isToolbarHidden = true
     }
     
     @objc func refresh(_ sender: AnyObject) {
