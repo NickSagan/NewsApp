@@ -181,16 +181,16 @@ extension HomeScreenVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let url = URL(string: Shared.instance.otherNews[indexPath.row].url) else { return }
-        let vc = WebViewVC()
-        vc.selectedSite = url
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let viewController = WebViewViewController(url: url)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @objc private func tapHeader(sender: UITapGestureRecognizer) {
         guard let url = URL(string: Shared.instance.featuredNews[0].url) else { return }
-        let vc = WebViewVC()
-        vc.selectedSite = url
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let viewController = WebViewViewController(url: url)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 

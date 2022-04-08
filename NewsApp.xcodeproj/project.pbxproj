@@ -22,7 +22,7 @@
 		912BD60A27FEFB4300529915 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60927FEFB4300529915 /* Welcome.swift */; };
 		912BD60C27FEFD9E00529915 /* NewsFeedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60B27FEFD9E00529915 /* NewsFeedManager.swift */; };
 		912BD60E27FF018300529915 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD60D27FF018300529915 /* News.swift */; };
-		912BD61427FF3D2B00529915 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD61327FF3D2B00529915 /* WebViewVC.swift */; };
+		912BD61427FF3D2B00529915 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD61327FF3D2B00529915 /* WebViewViewController.swift */; };
 		912BD61627FF63BF00529915 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD61527FF63BF00529915 /* API.swift */; };
 		912BD61828005EEF00529915 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912BD61728005EEE00529915 /* Shared.swift */; };
 /* End PBXBuildFile section */
@@ -63,7 +63,7 @@
 		912BD60927FEFB4300529915 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		912BD60B27FEFD9E00529915 /* NewsFeedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedManager.swift; sourceTree = "<group>"; };
 		912BD60D27FF018300529915 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		912BD61327FF3D2B00529915 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
+		912BD61327FF3D2B00529915 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		912BD61527FF63BF00529915 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		912BD61728005EEE00529915 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				912BD5CB27FE081B00529915 /* HomeScreenVC.swift */,
-				912BD61327FF3D2B00529915 /* WebViewVC.swift */,
+				912BD61327FF3D2B00529915 /* WebViewViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 			files = (
 				912BD60A27FEFB4300529915 /* Welcome.swift in Sources */,
 				912BD5CC27FE081B00529915 /* HomeScreenVC.swift in Sources */,
-				912BD61427FF3D2B00529915 /* WebViewVC.swift in Sources */,
+				912BD61427FF3D2B00529915 /* WebViewViewController.swift in Sources */,
 				912BD60427FEE4B000529915 /* HeaderView.swift in Sources */,
 				912BD60E27FF018300529915 /* News.swift in Sources */,
 				912BD5FF27FED3D000529915 /* FeaturedNewsView.swift in Sources */,
