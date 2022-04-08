@@ -20,14 +20,16 @@ protocol NewsFeedManagerDelegate {
 struct NewsFeedManager {
     
     var delegate: NewsFeedManagerDelegate?
+    var pageNum = 2
+    let api = API()
     
     func fetchFeaturedNews() {
-        let urlString = Shared.instance.featuredNewsUrl + getCountry() + Shared.instance.apiKey
+        let urlString = api.featuredNews + getCountry() + api.key
         performRequest(with: urlString, newsType: .featuredNews)
     }
     
     func fetchOtherNews() {
-        let urlString = Shared.instance.otherNewsUrl + Shared.instance.apiKey
+        let urlString = api.otherNews + api.page + "\(pageNum)" + api.key
         performRequest(with: urlString, newsType: .otherNews)
     }
     
@@ -73,13 +75,13 @@ struct NewsFeedManager {
     private func getCountry() -> String {
         var country: String?
         
-        if let locale = Locale.current.regionCode {
-            let loc = locale.lowercased()
-            if Shared.instance.localeCountries.contains(loc) {
+        if let locale = Locale.current.languageCode {
+            if api.localeCountries.contains(locale) {
                 country = locale
             }
-        } else if let locale = Locale.current.languageCode {
-            if Shared.instance.localeCountries.contains(locale) {
+        } else if let locale = Locale.current.regionCode {
+            let loc = locale.lowercased()
+            if api.localeCountries.contains(loc) {
                 country = locale
             }
         }
