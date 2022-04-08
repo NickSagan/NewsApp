@@ -20,29 +20,41 @@ protocol NewsFeedManagerDelegate {
 struct NewsFeedManager {
     
     var delegate: NewsFeedManagerDelegate?
-    var pageNum = 2
     let api = API()
     
-    func fetchFeaturedNews() {
+    func fetchFeaturedNews(refresh: Bool = false) {
         let urlString = api.featuredNews + getCountry() + api.key
-        performRequest(with: urlString, newsType: .featuredNews)
+        performRequest(with: urlString, newsType: .featuredNews, refresh: refresh)
     }
     
-    func fetchOtherNews() {
-        let urlString = api.otherNews + api.page + "\(pageNum)" + api.key
-        performRequest(with: urlString, newsType: .otherNews)
+    func fetchOtherNews(page num: Int, refresh: Bool = false) {
+        let urlString = api.otherNews + api.page + "\(num)" + api.key
+        performRequest(with: urlString, newsType: .otherNews, refresh: refresh)
     }
     
-    private func performRequest(with urlString: String, newsType: NewsType) {
+    private func performRequest(with urlString: String, newsType: NewsType, refresh: Bool = false) {
         guard let url = URL(string: urlString) else { return }
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { data, response, error in
             if error != nil { print("Request fail: \(String(describing: error))"); return }
             guard let safeData = data else { return }
             guard let news = self.parseJSON(safeData) else { return }
+            
             switch newsType {
-            case .featuredNews: self.delegate?.didRecieveFeaturedNews(self, news: news)
-            case .otherNews: self.delegate?.didRecieveOtherNews(self, news: news)
+            case .featuredNews:
+                if refresh {
+                    Shared.instance.featuredNews = news
+                } else {
+                    Shared.instance.featuredNews += news
+                }
+                self.delegate?.didRecieveFeaturedNews(self, news: news)
+            case .otherNews:
+                if refresh {
+                    Shared.instance.otherNews = news
+                } else {
+                    Shared.instance.otherNews += news
+                }
+                self.delegate?.didRecieveOtherNews(self, news: news)
             }
         }
         task.resume()
@@ -51,8 +63,9 @@ struct NewsFeedManager {
     private func parseJSON(_ safeData: Data) -> [News]? {
         let decoder = JSONDecoder()
         do {
-            let decodedData = try decoder.decode(Articles.self, from: safeData)
+            let decodedData = try decoder.decode(Welcome.self, from: safeData)
             var news = [News]()
+            
             for item in decodedData.articles {
                 let source = item.source.name ?? "No source"
                 let title = item.title ?? "No title"
@@ -65,9 +78,11 @@ struct NewsFeedManager {
                 let article = News(source: source, title: title, description: description, url: url, urlToImage: urlToImage, publishedAt: displayDate)
                 news.append(article)
             }
+            
             return news
+            
         } catch {
-            print(error)
+            print("DECODING FAILED: \(error.localizedDescription)")
             return nil
         }
     }
